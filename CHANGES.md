@@ -1,3 +1,9 @@
+# Unreleased
+
+- Lots of cleanups and simplifications in `openbsd-compat`
+
+
+
 # Release 6.6.1p1 (2019-11-06)
 
 ## Changes in this release (since 6.6.0p1)
