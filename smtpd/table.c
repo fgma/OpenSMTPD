@@ -46,6 +46,7 @@ extern struct table_backend table_backend_static;
 extern struct table_backend table_backend_db;
 extern struct table_backend table_backend_getpwnam;
 extern struct table_backend table_backend_proc;
+extern struct table_backend table_backend_proc2;
 
 static const char * table_service_name(enum table_service);
 static int table_parse_lookup(enum table_service, const char *, const char *,
@@ -59,6 +60,7 @@ static struct table_backend *backends[] = {
 	&table_backend_db,
 	&table_backend_getpwnam,
 	&table_backend_proc,
+	&table_backend_proc2,
 	NULL
 };
 
@@ -244,6 +246,29 @@ table_create(struct smtpd *conf, const char *backend, const char *name,
 		if (n >= sizeof(t->t_name))
 			fatalx("table_create: table name too long");
 	}
+
+	dict_set(conf->sc_tables_dict, t->t_name, t);
+
+	return (t);
+}
+
+struct table *
+table_create_proc(struct smtpd *conf, const char *name, const char *procname)
+{
+	struct table		*t;
+	size_t			 n;
+
+	if (name && table_find(conf, name))
+		fatalx("table_create: table \"%s\" already defined", name);
+
+	t = xcalloc(1, sizeof(*t));
+	t->t_backend = table_backend_lookup("proc2");
+	t->t_proc = procname;
+	t->t_type = T_DYNAMIC;
+
+	n = strlcpy(t->t_name, name, sizeof(t->t_name));
+	if (n >= sizeof(t->t_name))
+		fatalx("table_create: table name too long");
 
 	dict_set(conf->sc_tables_dict, t->t_name, t);
 

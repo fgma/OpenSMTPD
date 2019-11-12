@@ -48,6 +48,7 @@ SRCS+=	table_static.c
 SRCS+=	table_db.c
 SRCS+=	table_getpwnam.c
 SRCS+=	table_proc.c
+SRCS+=	table_proc2.c
 SRCS+=	unpack_dns.c
 SRCS+=	spfwalk.c
 

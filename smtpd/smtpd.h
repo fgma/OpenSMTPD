@@ -364,6 +364,8 @@ struct table {
 
 	void				*t_handle;
 	struct table_backend		*t_backend;
+	const char     			*t_proc;
+	struct processor		*t_processor;
 };
 
 struct table_backend {
@@ -1367,6 +1369,15 @@ void lka_report_filter_report(uint64_t, const char *, int, const char *,
 void lka_report_proc(const char *, const char *);
 
 
+/* lka_table.c */
+int lka_table_open(struct table *, struct timeval *);
+int lka_table_update(struct table *, struct timeval *);
+int lka_table_close(struct table *, struct timeval *);
+int lka_table_lookup(struct table *, struct timeval *, enum table_service, const char *, char **);
+int lka_table_fetch(struct table *, struct timeval *, enum table_service, char **);
+void lka_table_proc(const char *, const char *);
+
+
 /* lka_filter.c */
 void lka_filter_init(void);
 void lka_filter_register_hook(const char *, const char *);
@@ -1619,6 +1630,8 @@ struct stat_value *stat_timespec(struct timespec *);
 struct table *table_find(struct smtpd *, const char *);
 struct table *table_create(struct smtpd *, const char *, const char *,
     const char *);
+struct table *
+table_create_proc(struct smtpd *, const char *, const char *);
 int	table_config(struct table *);
 int	table_open(struct table *);
 int	table_update(struct table *);

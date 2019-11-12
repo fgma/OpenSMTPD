@@ -73,6 +73,36 @@ fork_proc_backend(const char *backend, const char *conf, const char *procname)
 }
 
 int
+lka_table_open(struct table *t, struct timeval *tv)
+{
+	return (-1);
+}
+
+int
+lka_table_update(struct table *t, struct timeval *tv)
+{
+	return (-1);
+}
+
+int
+lka_table_close(struct table *t, struct timeval *tv)
+{
+	return (-1);
+}
+
+int
+lka_table_lookup(struct table *t, struct timeval *tv, enum table_service s, const char *k, char **dest)
+{
+	return (-1);
+}
+
+int
+lka_table_fetch(struct table *t, struct timeval *tv, enum table_service s, char **dest)
+{
+	return (-1);
+}
+
+int
 makemap(int prog_mode, int argc, char *argv[])
 {
 	struct stat	 sb;

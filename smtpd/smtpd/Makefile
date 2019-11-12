@@ -27,6 +27,7 @@ SRCS+=	lka_filter.c
 SRCS+=	lka_proc.c
 SRCS+=	lka_report.c
 SRCS+=	lka_session.c
+SRCS+=	lka_table.c
 SRCS+=	log.c
 SRCS+=	mailaddr.c
 SRCS+=	mda.c
@@ -69,6 +70,7 @@ SRCS+=		compress_gzip.c
 SRCS+=		table_db.c
 SRCS+=		table_getpwnam.c
 SRCS+=		table_proc.c
+SRCS+=		table_proc2.c
 SRCS+=		table_static.c
 
 SRCS+=		queue_fs.c

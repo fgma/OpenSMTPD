@@ -167,6 +167,8 @@ processor_io(struct io *io, int evt, void *arg)
 				lka_filter_process_response(name, line);
 			else if (strncmp(line, "report|", 7) == 0)
 				lka_report_proc(name, line);
+			else if (strncmp(line, "table-result|", 6) == 0)
+				lka_table_proc(name, line);
 			else
 				fatalx("Invalid filter message type: %s", line);
 		}

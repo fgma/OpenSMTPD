@@ -2255,6 +2255,38 @@ table		: TABLE STRING STRING	{
 			free($2);
 			free($3);
 		}
+		| TABLE STRING PROC_EXEC STRING	{
+			if (dict_get(conf->sc_tables_dict, $2)) {
+				yyerror("table already exists with that name: %s", $2);
+				free($2);
+				free($4);
+				YYERROR;
+			}
+
+			processor = xcalloc(1, sizeof *processor);
+			processor->command = xstrdup($4);
+
+			table = table_create_proc(conf, $2, xstrdup($2));
+			if (!table_config(table)) {
+				free($2);
+				free($4);
+				YYERROR;
+			}
+
+			//free($2);
+			//free($3);
+			//filter_config = xcalloc(1, sizeof *filter_config);
+			//filter_config->filter_type = FILTER_TYPE_PROC;
+			//filter_config->name = $2;
+			//filter_config->proc = xstrdup($2);
+			//dict_set(conf->sc_filters_dict, $2, filter_config);
+		} proc_params {
+			dict_set(conf->sc_processors_dict, table->t_proc, processor);
+			processor = NULL;
+			table = NULL;
+			free($2);
+			free($4);
+		}
 		| TABLE STRING {
 			table = table_create(conf, "static", $2, NULL);
 			free($2);
